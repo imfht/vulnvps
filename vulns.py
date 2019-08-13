@@ -21,8 +21,7 @@ class DockerMonitor:
             self.scheduler.every(vul.recreate_time).seconds.do(self.recreate_vul_docker, vul=vul)
         while True:
             schedule.run_pending()
-            self.logger.debug("docker monitor is running.")
-            time.sleep(1)
+            time.sleep(5)
 
     def _pull_all_images(self):
         for vul in self.vuls:

@@ -62,6 +62,9 @@ class MemcachedUnAuth:
         self.ports = {'11211': 11211}
         self.recreate_time = 60 * 10  # every 10min
 
+    def __repr__(self):
+        return "memcached unauth service at 11211"
+
 
 class SQLInjLib:
     def __init__(self):
