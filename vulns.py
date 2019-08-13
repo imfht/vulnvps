@@ -28,9 +28,9 @@ class DockerMonitor:
 
     def _pull_all_images(self):
         for vul in self.vuls:
-            self.logger.debug("pulling image: %s" % vul.docker_image)
+            self.logger.debug("start pulling image: %s" % vul.docker_image)
             self.docker.images.pull(vul.docker_image)
-            self.logger.debug("pulled image: %s" % vul.docker_image)
+            self.logger.debug("finished image: %s" % vul.docker_image)
 
     def _delete_docker(self, vul):
         try:
@@ -39,26 +39,24 @@ class DockerMonitor:
                 container.remove(force=True)
         except Exception as e:
             pass
-            # self.logger.warning("remove error: %s" % e)
-        self.logger.info("removed %s" % vul.name)
 
-    def _create_docker(self, vul):
+    def _create_container(self, vul):
         """
         :type vul: DVWA
         """
-        self.logger.debug("trying to start %s" % vul.name)
         self.docker.containers.run(vul.docker_image, remove=True, detach=True, ports=vul.ports, name=vul.name,
                                    environment=vul.__dict__.get('environment'))
-        self.logger.info("started %s" % vul.name)
 
     def recreate_vul_docker(self, vul):
         self._delete_docker(vul)
-        self._create_docker(vul)
+        self._create_container(vul)
+        self.logger.info("recreated %s" % vul.name)
 
     def signal_handler(self, sig, frame):
         self.logger.info('Exiting....')
         for vul in self.vuls:
             self._delete_docker(vul)
+            self.logger.info("delete %s" % vul.name)
         self.logger.info('Bye!')
         sys.exit(0)
 
