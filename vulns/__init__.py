@@ -70,7 +70,7 @@ class SQLInjLib:
     def __init__(self):
         self.name = 'sqlinj-lib'
         self.docker_image = 'tuxotron/audi_sqli'
-        self.ports = {'9201': 80}
+        self.ports = {'9201': 9201}
         self.recreate_time = 60 * 10  # every 10min
 
     def __repr__(self):

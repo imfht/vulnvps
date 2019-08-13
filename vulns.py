@@ -1,3 +1,5 @@
+import signal
+import sys
 import time
 
 import docker
@@ -13,6 +15,7 @@ class DockerMonitor:
         self.vuls = vuls
         self.logger = logger
         self.scheduler = schedule
+        signal.signal(signal.SIGINT, self.signal_handler)
 
     def start(self):
         self._pull_all_images()
@@ -35,7 +38,8 @@ class DockerMonitor:
             if container:
                 container.remove(force=True)
         except Exception as e:
-            self.logger.warning("remove error: %s" % e)
+            pass
+            # self.logger.warning("remove error: %s" % e)
         self.logger.info("removed %s" % vul.name)
 
     def _create_docker(self, vul):
@@ -50,6 +54,13 @@ class DockerMonitor:
     def recreate_vul_docker(self, vul):
         self._delete_docker(vul)
         self._create_docker(vul)
+
+    def signal_handler(self, sig, frame):
+        self.logger.info('Exiting....')
+        for vul in self.vuls:
+            self._delete_docker(vul)
+        self.logger.info('Bye!')
+        sys.exit(0)
 
 
 if __name__ == '__main__':
