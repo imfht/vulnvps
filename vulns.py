@@ -15,6 +15,7 @@ class DockerMonitor:
         self.scheduler = schedule
 
     def start(self):
+        self._pull_all_images()
         for vul in self.vuls:
             self.recreate_vul_docker(vul)
             self.scheduler.every(vul.recreate_time).seconds.do(self.recreate_vul_docker, vul=vul)

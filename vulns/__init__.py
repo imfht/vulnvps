@@ -34,8 +34,8 @@ class FTPFakePass:
 
 class RedisUnAuth:
     def __init__(self):
-        self.name = 'redis'
-        self.docker_image = 'redis'
+        self.name = 'redis-unauth'
+        self.docker_image = 'redis:latest'
         self.ports = {'6379/tcp': 6379}
         self.recreate_time = 60 * 10  # 10 min
 
