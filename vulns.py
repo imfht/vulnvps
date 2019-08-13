@@ -28,6 +28,7 @@ class DockerMonitor:
         for vul in self.vuls:
             self.logger.debug("pulling image: %s" % vul.docker_image)
             self.docker.images.pull(vul.docker_image)
+            self.logger.debug("pulled image: %s" % vul.docker_image)
 
     def _delete_docker(self, vul):
         try:

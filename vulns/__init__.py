@@ -1,7 +1,7 @@
 class DVWA:
     def __init__(self, **kwargs):
         self.name = 'dvwa'
-        self.docker_image = 'imfht/dvwa-nologin'
+        self.docker_image = 'imfht/dvwa-nologin:latest'
         self.ports = {'80/tcp': 9200}
         self.recreate_time = 60 * 10  # 10min
 
@@ -12,7 +12,7 @@ class DVWA:
 class SSHFakePass:
     def __init__(self, **kwargs):
         self.name = 'ssh-fake-pass'
-        self.docker_image = 'arvindr226/alpine-ssh'
+        self.docker_image = 'arvindr226/alpine-ssh:latest'
         self.ports = {'22/tcp': 2222}
         self.recreate_time = 60 * 2  # rebuild every two minute.
 
@@ -23,7 +23,7 @@ class SSHFakePass:
 class FTPFakePass:
     def __init__(self, **kwargs):
         self.name = 'ftp-fake-pass'
-        self.docker_image = 'fauria/vsftpd'
+        self.docker_image = 'fauria/vsftpd:latest'
         self.ports = {'21/tcp': 21, '20/tcp': 20}
         self.recreate_time = 60 * 2  # rebuild every two minute.
         self.environment = {'FTP_USER': 'test', 'FTP_PASS': '123456'}
@@ -46,7 +46,7 @@ class RedisUnAuth:
 class MysqlFakePass:
     def __init__(self):
         self.name = 'mysql_fake_pass'
-        self.docker_image = 'mysql'
+        self.docker_image = 'mysql:5'
         self.environment = {'MYSQL_ROOT_PASSWORD': 'root'}
         self.ports = {'3306': 3306}
         self.recreate_time = 60 * 10  # recreate every 10min
@@ -55,4 +55,12 @@ class MysqlFakePass:
         return 'mysql: connect at: 3306'
 
 
-vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass()]
+class MemcachedUnAuth:
+    def __init__(self):
+        self.name = 'memcached_unauth'
+        self.docker_image = 'memcached:latest'
+        self.ports = {'11211': 11211}
+        self.recreate_time = 60 * 10  # every 10min
+
+
+vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth()]
