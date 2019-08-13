@@ -1,5 +1,5 @@
 # vulnvps
-This repo makes your vps vulnerable. Helpful for av scan engine test.
+This repo makes your vps vulnerable. Helpful in av scan engine testing.
 
 ## Vul
 
@@ -12,3 +12,17 @@ This repo makes your vps vulnerable. Helpful for av scan engine test.
 | 3306  | mysql fake password. Login: `root` `root` |                                                              |
 | 6379  | Redis unauth.                             |                                                              |
 | 21    | ftp fake password. Login: `test` `123456` |                                                              |
+
+## pre requirements
+This repo assume a local docker is running and is reachable.
+eg: run `docker search hello` you can get some output.
+
+## usage
+1. install docker.
+2. run `docker search hello` to see is docker works well.
+3. install requirements. `pip install -r requirements.txt`. (virtualenv is advised.)
+4. `python vuls.py` Rock and roll.
+
+This scripts only tested on my own vps.
+Waiting for your issue and pull request. 
+
