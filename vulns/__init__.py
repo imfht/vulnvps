@@ -63,4 +63,15 @@ class MemcachedUnAuth:
         self.recreate_time = 60 * 10  # every 10min
 
 
-vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth()]
+class SQLInjLib:
+    def __init__(self):
+        self.name = 'sqlinj-lib'
+        self.docker_image = 'tuxotron/audi_sqli'
+        self.ports = {'9201': 80}
+        self.recreate_time = 60 * 10  # every 10min
+
+    def __repr__(self):
+        return "SQL injlib from https://github.com/Audi-1/sqli-labs. visit: 9201"
+
+
+vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib()]
