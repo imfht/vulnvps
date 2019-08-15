@@ -1,6 +1,7 @@
 import signal
 import sys
 import time
+from contextlib import suppress
 
 import docker
 import schedule
@@ -33,12 +34,8 @@ class DockerMonitor:
             self.logger.debug("finished image: %s" % vul.docker_image)
 
     def _delete_docker(self, vul):
-        try:
-            container = self.docker.containers.get(vul.name)
-            if container:
-                container.remove(force=True)
-        except Exception as e:
-            pass
+        with suppress(Exception):
+            self.docker.containers.get(vul.name).remove(force=True)
 
     def _create_container(self, vul):
         """
@@ -46,6 +43,8 @@ class DockerMonitor:
         """
         self.docker.containers.run(vul.docker_image, remove=True, detach=True, ports=vul.ports, name=vul.name,
                                    environment=vul.__dict__.get('environment'))
+        with suppress(Exception):
+            vul.init_docker()
 
     def recreate_vul_docker(self, vul):
         self._delete_docker(vul)

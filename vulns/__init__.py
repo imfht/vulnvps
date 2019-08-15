@@ -1,12 +1,23 @@
+import urllib
+from urllib.request import Request
+
+from loguru import logger
+
+
 class DVWA:
     def __init__(self, **kwargs):
         self.name = 'dvwa'
         self.docker_image = 'imfht/dvwa-nologin:latest'
         self.ports = {'80/tcp': 9200}
-        self.recreate_time = 60 * 10  # 10min
+        self.recreate_time = 60 * 60  # 1h
 
     def __repr__(self):
         return "dvwa: visit :9200"
+
+    def init_docker(self):
+        req = Request(url='http://127.0.0.1:9200/setup.php', data={'create_db': 1})
+        urllib.request.urlopen(req)
+        logger.debug("init dvwa db.")
 
 
 class SSHFakePass:
@@ -25,7 +36,7 @@ class FTPFakePass:
         self.name = 'ftp-fake-pass'
         self.docker_image = 'fauria/vsftpd:latest'
         self.ports = {'21/tcp': 21, '20/tcp': 20}
-        self.recreate_time = 60 * 2  # rebuild every two minute.
+        self.recreate_time = 60 * 60  # rebuild every hour.
         self.environment = {'FTP_USER': 'test', 'FTP_PASS': '123456'}
 
     def __repr__(self):
@@ -71,7 +82,7 @@ class SQLInjLib:
         self.name = 'sqlinj-lib'
         self.docker_image = 'tuxotron/audi_sqli'
         self.ports = {'80/tcp': 9201}
-        self.recreate_time = 60 * 10  # every 10min
+        self.recreate_time = 60 * 60  # every hour
 
     def __repr__(self):
         return "SQL injlib from https://github.com/Audi-1/sqli-labs. visit: 9201"
