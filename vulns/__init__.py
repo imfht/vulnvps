@@ -9,13 +9,13 @@ class DVWA:
         self.name = 'dvwa'
         self.docker_image = 'imfht/dvwa-nologin:latest'
         self.ports = {'80/tcp': 9200}
-        self.recreate_time = 60 * 60  # 1h
+        self.recreate_time = 60 * 60 * 24  # recreate every day.
 
     def __repr__(self):
         return "dvwa: visit :9200"
 
     def init_docker(self):
-        req = Request(url='http://127.0.0.1:9200/setup.php', data={'create_db': 1})
+        req = Request(url='http://106.52.211.11:9200/setup.php', data={'create_db': 1})
         urllib.request.urlopen(req)
         logger.debug("init dvwa db.")
 
