@@ -34,8 +34,7 @@ class DockerMonitor:
             self.logger.debug("finished image: %s" % vul.docker_image)
 
     def _delete_docker(self, vul):
-        with suppress(Exception):
-            self.docker.containers.get(vul.name).remove(force=True, v=True, link=True)
+        self.docker.containers.get(vul.name).remove(force=True, v=True)
 
     def _create_container(self, vul):
         """
@@ -61,7 +60,7 @@ class DockerMonitor:
 
 
 @click.command()
-@click.option('-p', default=False, help='force pull image.', is_flag=True)
+@click.option('--pull', default=False, help='force pull image.', is_flag=True)
 def main(pull):
     """Simple program that greets NAME for a total of COUNT times."""
     DockerMonitor(force_pull=pull).start()
