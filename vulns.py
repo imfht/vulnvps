@@ -35,7 +35,7 @@ class DockerMonitor:
 
     def _delete_docker(self, vul):
         with suppress(Exception):
-            self.docker.containers.get(vul.name).remove(force=True)
+            self.docker.containers.get(vul.name).remove(force=True, v=True, link=True)
 
     def _create_container(self, vul):
         """
