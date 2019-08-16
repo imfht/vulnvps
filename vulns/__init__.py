@@ -1,11 +1,21 @@
-import urllib
-from urllib.request import Request
+import time
+from contextlib import suppress
 
+import requests
 from loguru import logger
 
 
-class DVWA:
+class VulDocker:
+    def __init__(self):
+        pass
+
+    def init_docker(self):
+        pass
+
+
+class DVWA(VulDocker):
     def __init__(self, **kwargs):
+        super().__init__()
         self.name = 'dvwa'
         self.docker_image = 'imfht/dvwa-nologin:latest'
         self.ports = {'80/tcp': 9200}
@@ -15,13 +25,21 @@ class DVWA:
         return "dvwa: visit :9200"
 
     def init_docker(self):
-        req = Request(url='http://106.52.211.11:9200/setup.php', data={'create_db': 1})
-        urllib.request.urlopen(req)
-        logger.debug("init dvwa db.")
+        while True:
+            with suppress(Exception):
+                response = requests.post('http://127.0.0.1:9200/setup.php', data={'create_db': 1})
+                if response.text != 'okay':
+                    logger.info("setup.php do not return okay.")
+                    raise ValueError("")
+                logger.info("init dvwa db.")
+                break
+            logger.debug("waiting dvwa up")
+            time.sleep(1)
 
 
-class SSHFakePass:
+class SSHFakePass(VulDocker):
     def __init__(self, **kwargs):
+        super().__init__()
         self.name = 'ssh-fake-pass'
         self.docker_image = 'arvindr226/alpine-ssh:latest'
         self.ports = {'22/tcp': 2222}
@@ -31,8 +49,9 @@ class SSHFakePass:
         return "ssh: login as root/root"
 
 
-class FTPFakePass:
+class FTPFakePass(VulDocker):
     def __init__(self, **kwargs):
+        super().__init__()
         self.name = 'ftp-fake-pass'
         self.docker_image = 'fauria/vsftpd:latest'
         self.ports = {'21/tcp': 21, '20/tcp': 20}
@@ -43,8 +62,9 @@ class FTPFakePass:
         return 'ftp: login as test:123456'
 
 
-class RedisUnAuth:
+class RedisUnAuth(VulDocker):
     def __init__(self):
+        super().__init__()
         self.name = 'redis-unauth'
         self.docker_image = 'redis:latest'
         self.ports = {'6379/tcp': 6379}
@@ -54,8 +74,9 @@ class RedisUnAuth:
         return "redis: connect at :6379"
 
 
-class MysqlFakePass:
+class MysqlFakePass(VulDocker):
     def __init__(self):
+        super().__init__()
         self.name = 'mysql_fake_pass'
         self.docker_image = 'mysql:5'
         self.environment = {'MYSQL_ROOT_PASSWORD': 'root'}
@@ -66,8 +87,9 @@ class MysqlFakePass:
         return 'mysql: connect at: 3306'
 
 
-class MemcachedUnAuth:
+class MemcachedUnAuth(VulDocker):
     def __init__(self):
+        super().__init__()
         self.name = 'memcached_unauth'
         self.docker_image = 'memcached:latest'
         self.ports = {'11211': 11211}
@@ -77,8 +99,9 @@ class MemcachedUnAuth:
         return "memcached unauth service at 11211"
 
 
-class SQLInjLib:
+class SQLInjLib(VulDocker):
     def __init__(self):
+        super().__init__()
         self.name = 'sqlinj-lib'
         self.docker_image = 'tuxotron/audi_sqli'
         self.ports = {'80/tcp': 9201}
@@ -89,3 +112,4 @@ class SQLInjLib:
 
 
 vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib()]
+
