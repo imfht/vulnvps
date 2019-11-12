@@ -34,7 +34,10 @@ class DockerMonitor:
             self.logger.debug("finished image: %s" % vul.docker_image)
 
     def _delete_docker(self, vul):
-        self.docker.containers.get(vul.name).remove(force=True, v=True)
+        try:
+            self.docker.containers.get(vul.name).remove(force=True, v=True)
+        except:
+            pass
 
     def _create_container(self, vul):
         """
