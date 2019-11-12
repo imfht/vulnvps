@@ -44,7 +44,7 @@ class DockerMonitor:
         :type vul: DVWA
         """
         self.docker.containers.run(vul.docker_image, remove=True, detach=True, ports=vul.ports, name=vul.name,
-                                   environment=vul.__dict__.get('environment'))
+                                   environment=vul.__dict__.get('environment'), network_mode=vul.network_mode)
 
         vul.init_docker()
 

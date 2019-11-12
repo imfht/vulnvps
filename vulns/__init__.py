@@ -7,10 +7,12 @@ from loguru import logger
 
 class VulDocker:
     def __init__(self):
+        self.network_mode = "bridge"
         pass
 
     def init_docker(self):
         pass
+
 
 ONE_MIN = 60
 ONE_HOUR = 60 * 60
@@ -23,7 +25,7 @@ class DVWA(VulDocker):
         self.name = 'dvwa'
         self.docker_image = 'imfht/dvwa-nologin:latest'
         self.ports = {'80/tcp': 9200}
-        self.recreate_time = 1000 * ONE_DAY  # will 'never' recreate.
+        self.recreate_time = 1000 * ONE_DAY  # will 'never' recreate dvwa for some reason.
 
     def __repr__(self):
         return "dvwa: visit :9200"
@@ -115,5 +117,17 @@ class SQLInjLib(VulDocker):
         return "SQL injlib from https://github.com/Audi-1/sqli-labs. visit: 9201"
 
 
-vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib()]
+class FakeWebApp(VulDocker):
+    def __init__(self):
+        super().__init__()
+        self.name = 'fake_web_app'
+        self.docker_image = 'imfht/vuln_web'
+        self.recreate_time = 1 * ONE_HOUR
+        self.network_mode = "host"
 
+    def __repr__(self):
+        return "A honeyport still from IPv4 space."
+
+
+vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib(),
+        FakeWebApp()]
