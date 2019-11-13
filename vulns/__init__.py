@@ -8,6 +8,7 @@ from loguru import logger
 class VulDocker:
     def __init__(self):
         self.network_mode = "bridge"
+        self.ports = None
         pass
 
     def init_docker(self):
