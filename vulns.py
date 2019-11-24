@@ -1,15 +1,18 @@
 import signal
 import sys
+import time
 
 import click
 import docker
 import schedule
+from loguru import logger
+from tabulate import tabulate
 
 from vulns import *
 
 
 class DockerMonitor:
-    def __init__(self, force_pull):
+    def __init__(self, force_pull=False):
         self.docker = docker.from_env()
         self.vuls = vuls
         self.logger = logger
@@ -61,11 +64,19 @@ class DockerMonitor:
         self.logger.info('Bye!')
         sys.exit(0)
 
+    def show_vul_available(self):
+        headers = ("name", "desc")
+        data = [(i.name, str(i)) for i in self.vuls]
+        print(tabulate(data, headers=headers, tablefmt="psql"))
+
 
 @click.command()
 @click.option('--pull', default=False, help='force pull image.', is_flag=True)
-def main(pull):
-    """Simple program that greets NAME for a total of COUNT times."""
+@click.option('--show', default=False, help='show vul docker.', is_flag=True)
+def main(pull, show):
+    if show:
+        DockerMonitor().show_vul_available()
+        return
     DockerMonitor(force_pull=pull).start()
 
 
