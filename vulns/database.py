@@ -30,7 +30,7 @@ class MongoUnauth(VulDocker):
     def __init__(self):
         super().__init__()
         self.name = "mongo_unauth"
-        self.docker_image = "mongodb:3"
+        self.docker_image = "mongo:3"
         self.recreate_time = ONE_HOUR
         self.ports = {'27017/tcp': 27017}
 
@@ -55,7 +55,7 @@ class PostgresqlUnauth(VulDocker):
     def __init__(self):
         super().__init__()
         self.name = "postgres_fake_pass"
-        self.docker_image = "postgres:3"
+        self.docker_image = "postgres:9"
         self.recreate_time = ONE_HOUR
 
     def __repr__(self):

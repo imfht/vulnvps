@@ -13,5 +13,5 @@ from .proxy import Socks5, HTTPProxy
 from .service import SSHFakePass, FTPFakePass, RDPY
 from .web import DVWA, SQLInjLib, FakeWebApp
 
-vuls = [DVWA(), SSHFakePass(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib(),
-        FakeWebApp(), MongoUnauth(), PostgresqlUnauth(), RDPY(), Socks5(), HTTPProxy()]
+vuls = [DVWA(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib(),
+        MongoUnauth(), PostgresqlUnauth(), RDPY(), Socks5(), HTTPProxy(),]
