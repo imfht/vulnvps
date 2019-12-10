@@ -11,7 +11,7 @@ class SSHFakePass(VulDocker):
         self.recreate_time = 2 * ONE_MIN  # rebuild every two minute.
 
     def __repr__(self):
-        return "ssh: login as root/root"
+        return "一个真实的ssh弱口令环境。root/root"
 
 
 class FTPFakePass(VulDocker):
@@ -24,7 +24,7 @@ class FTPFakePass(VulDocker):
         self.environment = {'FTP_USER': 'test', 'FTP_PASS': '123456'}
 
     def __repr__(self):
-        return 'ftp: login as test:123456'
+        return '一个真实的FTP弱口令环境。test:123456'
 
 
 class RDPY(VulDocker):
@@ -36,4 +36,4 @@ class RDPY(VulDocker):
         self.recreate_time = ONE_HOUR  # rebuild every hour.
 
     def __repr__(self):
-        return "rdpy on: 3389"
+        return "一个开放的rdp服务"

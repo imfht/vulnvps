@@ -11,7 +11,7 @@ class RedisUnAuth(VulDocker):
         self.recreate_time = 10 * ONE_MIN  # 10 min
 
     def __repr__(self):
-        return "redis: connect at :6379"
+        return "一个未授权的Redis服务。"
 
 
 class MemcachedUnAuth(VulDocker):
@@ -23,7 +23,7 @@ class MemcachedUnAuth(VulDocker):
         self.recreate_time = ONE_HOUR  # every 10min
 
     def __repr__(self):
-        return "memcached unauth service at 11211"
+        return "一个未授权的memcached服务。"
 
 
 class MongoUnauth(VulDocker):
@@ -35,7 +35,7 @@ class MongoUnauth(VulDocker):
         self.ports = {'27017/tcp': 27017}
 
     def __repr__(self):
-        return "mongodb unauth."
+        return "一个未授权的MongoDB服务."
 
 
 class MysqlFakePass(VulDocker):
@@ -48,7 +48,7 @@ class MysqlFakePass(VulDocker):
         self.recreate_time = 10 * ONE_MIN  # recreate every 10min
 
     def __repr__(self):
-        return 'mysql: connect at: 3306'
+        return '一个弱口令MySQL服务'
 
 
 class PostgresqlUnauth(VulDocker):
@@ -59,4 +59,4 @@ class PostgresqlUnauth(VulDocker):
         self.recreate_time = ONE_HOUR
 
     def __repr__(self):
-        return "postgres unauth."
+        return "一个未授权的postgres服务."

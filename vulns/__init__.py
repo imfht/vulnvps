@@ -11,7 +11,7 @@ class VulDocker:
 from .database import RedisUnAuth, MysqlFakePass, MemcachedUnAuth, MongoUnauth, PostgresqlUnauth
 from .proxy import Socks5, HTTPProxy
 from .service import SSHFakePass, FTPFakePass, RDPY
-from .web import DVWA, SQLInjLib, FakeWebApp
+from .web import DVWA, Wavsep,OwaspBenchMark
 
-vuls = [DVWA(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(), SQLInjLib(),
-        MongoUnauth(), PostgresqlUnauth(), RDPY(), Socks5(), HTTPProxy(),]
+vuls = [DVWA(), FTPFakePass(), RedisUnAuth(), MysqlFakePass(), MemcachedUnAuth(),
+        MongoUnauth(), PostgresqlUnauth(), RDPY(), Socks5(), HTTPProxy(), Wavsep(),OwaspBenchMark()]

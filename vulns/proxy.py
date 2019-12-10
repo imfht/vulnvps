@@ -11,7 +11,7 @@ class Socks5(VulDocker):
         self.ports = {"1080": 1080}
 
     def __repr__(self):
-        return "socks5 proxy on : 1080"
+        return "一个开放的socks5服务。"
 
 
 class HTTPProxy(VulDocker):
@@ -23,4 +23,4 @@ class HTTPProxy(VulDocker):
         self.ports = {"3128": 3128}
 
     def __repr__(self):
-        return "http proxy on : 3128"
+        return "一个开放的HTTP代理服务"
