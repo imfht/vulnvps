@@ -65,9 +65,9 @@ class DockerMonitor:
         sys.exit(0)
 
     def show_vul_available(self):
-        headers = ("name", "desc")
-        data = [(i.name, str(i)) for i in self.vuls]
-        print(tabulate(data, headers=headers, tablefmt="psql"))
+        headers = ("name", 'image', 'ports','ttl', "desc")
+        data = [(i.name, i.docker_image, list(i.ports.keys()), f'{int(i.recreate_time/60)} min', str(i)) for i in self.vuls]
+        print(tabulate(data, headers=headers, tablefmt="github"))
 
 
 @click.command()

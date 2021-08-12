@@ -57,6 +57,7 @@ class PostgresqlUnauth(VulDocker):
         self.name = "postgres_fake_pass"
         self.docker_image = "postgres:9"
         self.recreate_time = ONE_HOUR
+        self.ports = {'5432': 5432}
 
     def __repr__(self):
         return "一个未授权的postgres服务."

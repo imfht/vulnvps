@@ -38,7 +38,7 @@ class Wavsep(VulDocker):
         self.name = "wavsep"
         self.docker_image = 'imfht/wavsep'
         self.ports = {'8080/tcp': 8080}
-        self.receate_time = ONE_DAY * 100
+        self.recreate_time = ONE_DAY * 1
 
     def __repr__(self):
         return "WAVSEP 是一个包含漏洞的web应用程序，目的是帮助测试web应用漏洞扫描器的功能、质量和准确性。"
@@ -50,8 +50,7 @@ class OwaspBenchMark(VulDocker):
         self.name = 'owasp benchmark'
         self.docker_image = 'owasp/benchmark'
         self.ports = {'8080/tcp': 8443}
-        self.receate_time = ONE_DAY * 100
+        self.recreate_time = ONE_DAY * 1
 
     def __repr__(self):
-        return "OWASP benchmark是OWASP组织下的一个开源项目，又叫作OWASP基准测试项目，它是免费且开放的测试套件。 " \
-               "它可以用来评估那些自动化安全扫描工具的速度、覆盖范围和准确性。"
+        return "OWASP benchmark是OWASP组织用来评估那些自动化安全扫描工具的速度、覆盖范围和准确性"
