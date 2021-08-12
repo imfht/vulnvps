@@ -49,7 +49,7 @@ class OwaspBenchMark(VulDocker):
         super().__init__()
         self.name = 'owasp benchmark'
         self.docker_image = 'owasp/benchmark'
-        self.ports = {'8080/tcp': 8443}
+        self.ports = {'8081/tcp': 8443}
         self.recreate_time = ONE_DAY * 1
 
     def __repr__(self):

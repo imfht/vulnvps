@@ -21,7 +21,7 @@ Tested on python3.6 on ubuntu.
 | socks5             | serjs/go-socks5-proxy     | ['1080']             | 1440 min   | 一个开放的socks5服务。                                                                    |
 | http_proxy         | sameersbn/squid:3.5.27-2  | ['3128']             | 1440 min   | 一个开放的HTTP代理服务                                                                    |
 | wavsep             | imfht/wavsep              | ['8080/tcp']         | 1440 min   | WAVSEP 是一个包含漏洞的web应用程序，目的是帮助测试web应用漏洞扫描器的功能、质量和准确性。 |
-| owasp benchmark    | owasp/benchmark           | ['8080/tcp']         | 1440 min   | OWASP benchmark是OWASP组织用来评估那些自动化安全扫描工具的速度、覆盖范围和准确性          |
+| owasp benchmark    | owasp/benchmark           | ['8081/tcp']         | 1440 min   | OWASP benchmark是OWASP组织用来评估那些自动化安全扫描工具的速度、覆盖范围和准确性          |
 
 ## pre requirements
 This repo assume a local docker is running and is reachable.
