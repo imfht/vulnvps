@@ -11,7 +11,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 loguru==0.3.2
 MarkupSafe==1.1.1
-Pillow==8.3.1
+Pillow==9.0.1
 pyfiglet==0.8.post1
 pyparsing==2.4.2
 requests==2.22.0
